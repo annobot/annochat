@@ -1,0 +1,63 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style media="screen">
+  body{background-color: darkgrey;
+  color: black;
+font-size: 50%;
+text-align: center;}
+input{border-radius: 30%;
+background-color: black;
+text-align: center;
+
+padding-top: 3%;
+padding-bottom: 2%;
+color:white;}
+.lo{background-color: dimgrey;
+  padding-top: 30px;
+  display: block;
+}
+.head{font-size: 30px;
+text-shadow:  5px 5px 5px rgba(0,0,0,0.4);
+color:skyblue;
+font-weight: bolder;
+text-align: center;
+box-shadow:inset 5px 5px 5px rgba(0, 0, 0, 0.5);
+border: 1px solid rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+margin-top: 4px;
+margin-bottom: 20px;
+background-color: rgba(0,0,0,0.2);
+}
+.lo{margin-top: 5%;
+  padding-bottom: 3%;
+  border-bottom: 2px solid black;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-top-right-radius: 30px;
+
+}
+.bakwas{
+  font-size: 20px;
+}
+</style>
+<div class="head">
+  Annowords<br>
+</div>
+<div class="bakwas">
+
+go on, make my day<br>
+</div>
+
+<form class="lo" action="/check" method="post">
+  <input type="text" name="user" placeholder="enter user name">
+  <br></br><input type="password" name="pass" placeholder="enter your password">
+  <br></br><input type="submit" value="submit">
+</form>
+
+<form class="lo" action="/new" method="post">
+  <input type="text" name="user" placeholder="enter user name">
+  <br></br>
+  <input type="password" name="pass1" placeholder="enter your password">
+  <br>
+</br><input type="password" name="pass" placeholder="re-enter your password">
+  <br></br><input type="submit" value="submit">
+</form>
