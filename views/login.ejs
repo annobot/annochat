@@ -1,24 +1,175 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style media="screen">
-  body{background-color: darkgrey;
-  color: black;
-font-size: 50%;
-text-align: center;}
-input{border-radius: 30%;
-background-color: black;
-text-align: center;
+<meta property="og:image" content="IMG-20171125-WA0003.jpg">
+<meta name="theme-color" content="dimgreen">
+<title>Annowords- say it out</title>
+ <link rel="icon" href="IMG-20171125-WA0003.jpg" type="image/jpg">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script>
+var fix=0;
 
-padding-top: 3%;
-padding-bottom: 2%;
-color:white;}
-.lo{background-color: dimgrey;
-  padding-top: 30px;
-  display: block;
+$(document).ready(function functionName() {
+
+setInterval(function(){
+var x=$('.name').val();
+  var url="/te/"+$('.room').val();
+$.getJSON(url, function(a) {
+var res = Object.keys(a).map(function(k) {
+    // generate the array element
+    return [+k, a[k]];
+  });
+
+if(fix!=res.length){
+console.clear();
+$(".dis").html("");
+  for(var i=0;i<res.length;i++){
+console.log(res[i][1].msg);
+if(x==res[i][1].name){
+$('.dis').append("<p class='my'>"+res[i][1].msg+"</p>");
 }
-.head{font-size: 30px;
+else{
+$('.dis').append("<p class='their'><strong>"+res[i][1].name+": </strong> "+res[i][1].msg+"</p>");
+}
+}
+
+$('.dis').animate({
+ scrollTop: $('.dis').get(0).scrollHeight}, 0);
+ var bar = res.length-1;
+ console.log(res[bar][1].name);
+if(x!=res[bar][1].name){
+ window.navigator.vibrate(200);
+}else{
+  console.log('my msg');
+}
+}
+fix=res.length;
+
+});
+
+},200);
+
+$(".send").click(function send() {
+  $.ajax({
+             type: 'post',
+             url: '/dr',
+             data: JSON.stringify({name:$(".name").val(),
+             msg:$(".msg").val(),
+             room:$(".room").val()
+           }),
+             contentType: "application/json; charset=utf-8",
+             traditional: true,
+             success: function (data) {
+                 var b=0;
+             }
+         });
+
+$(".room").hide();
+$(".msg").val("");
+$(".name").hide();
+$(".ins").hide();
+$(".dis").css({display:"block"});
+$("input").css('margin-top','-30px');
+$(".send").css('margin-top','-14px');
+});
+$(document).on('keyup', function(e){
+    var key = e.which;
+    if(key == 13)  // the enter key ascii code
+    {
+      $(".send").click();
+    }
+});
+});
+
+</script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js">
+</script>
+<style media="screen">
+*{padding: 0 0;
+margin: 0 0;
+}
+
+.my{ box-shadow: inset 5px 5px 5px rgba(0,0,0,0.4);
+margin-top: 10px;
+height: auto;
+padding-top: 10px;
+padding-left: 15px;
+padding-bottom: 10px;
+width: 70%;
+background-color: lightpink;
+color:black;
+text-align:left;
+margin-left: 21%;
+border-radius: 30px;
+margin-bottom: 0px;
+
+padding-right:10px;
+}
+.their{ box-shadow: inset 5px 5px 5px rgba(0,0,0,0.4);
+margin-top: 10px;
+text-align:left ;
+
+height: auto;
+padding-top: 10px;
+padding-left: 15px;
+padding-right:15px;
+padding-bottom: 10px;
+width: 70%;
+color:black;
+background-color: lightgreen;
+margin-left: 3%;
+border-radius: 30px;
+margin-bottom: 0px;
+}
+body{
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: steelblue;
+  background-repeat: no-repeat;
+
+    background-size: cover;
+    background-image: url('https://static.pexels.com/photos/93417/pexels-photo-93417.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+  .dis{
+   box-shadow: inset 5px 5px 5px rgba(0,0,0,0.4);
+    height:350px;
+    width:100%;
+    background-color: rgba(0,0,0,0.8);
+    border-radius: 8px;
+    margin-top: 30px;
+    display: none;
+    overflow-y:scroll
+
+  }
+
+
+.send{margin-top: 15px;
+  border-radius: 30px;
+background-color: rgba(0,0,0,0.7);
+color: white;
+margin-left: 35%;
+width:80px;
+height:40px;}
+  input{
+
+box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
+    padding-left: 25px;
+    text-align: justify;
+    font-weight: bolder;
+    font-size: 15px;
+border-radius: 30px;
+background-color: rgba(0, 0, 0, 0.5);
+margin-top: 10px;
+margin-left:10%;
+width:260px;
+height: 40px;
+
+
+  }
+  .head{font-size: 30px;
 text-shadow:  5px 5px 5px rgba(0,0,0,0.4);
-color:skyblue;
-font-weight: bolder;
+  color:skyblue;
+  font-weight: bolder;
 text-align: center;
 box-shadow:inset 5px 5px 5px rgba(0, 0, 0, 0.5);
 border: 1px solid rgba(0, 0, 0, 0.1);
@@ -27,37 +178,36 @@ margin-top: 4px;
 margin-bottom: 20px;
 background-color: rgba(0,0,0,0.2);
 }
-.lo{margin-top: 5%;
-  padding-bottom: 3%;
-  border-bottom: 2px solid black;
-  border-bottom-right-radius: 30px;
-  border-bottom-left-radius: 30px;
-  border-top-right-radius: 30px;
+.ins{
+  font-size: 8px;
+  text-shadow:  5px 5px 5px rgba(0,0,0,0.4);
+    color:skyblue;
+    font-weight: bolder;
+  text-align: center;
 
 }
-.bakwas{
-  font-size: 20px;
+button:focus {
+    outline: none;
+}
+input:focus {
+    outline: none;
 }
 </style>
 <div class="head">
   Annowords<br>
 </div>
-<div class="bakwas">
+  <div class="ins">
+    share the chat room name with your friends or ask it from them
+  </div>
 
-go on, make my day<br>
-</div>
+<div class="dis">
 
-<form class="lo" action="/check" method="post">
-  <input type="text" name="user" placeholder="enter user name">
-  <br></br><input type="password" name="pass" placeholder="enter your password">
-  <br></br><input type="submit" value="submit">
-</form>
-
-<form class="lo" action="/new" method="post">
-  <input type="text" name="user" placeholder="enter user name">
-  <br></br>
-  <input type="password" name="pass1" placeholder="enter your password">
-  <br>
-</br><input type="password" name="pass" placeholder="re-enter your password">
-  <br></br><input type="submit" value="submit">
-</form>
+</div><br>
+<style media="screen">
+  .name{display: none;}
+</style>
+ <input type="text" class="name" value="<%=qs.name%>" id="name" placeholder="enter your name" ><br>
+ <input type="text" class="msg" id="msg"  placeholder="enter your message"><br>
+ <input type="text" class="room" id="room"  placeholder="enter chat room name"><br>
+ <button type="button" class="send"><strong>Send</strong></button>
+ <a href="/lg"><input type="button" value="Logout"></a>
